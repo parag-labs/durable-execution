@@ -48,6 +48,26 @@ pytest
 
 - **[DESIGN.md](DESIGN.md)** — the event-sourcing/replay model, why the workflow body must be deterministic and how the engine enforces it, the timing-wheel choice, and the honest non-goals (single-process reference; no distributed task queue, no real persistence backend).
 
+## How it works
+
+```mermaid
+flowchart LR
+  classDef proc fill:#4a90e2,stroke:#2c5aa0,color:#fff
+  classDef good fill:#27ae60,stroke:#1e8449,color:#fff
+  classDef bad fill:#e74c3c,stroke:#c0392b,color:#fff
+  classDef work fill:#8e44ad,stroke:#6c3483,color:#fff
+  WF["workflow(ctx)<br/>ordinary code calling ctx.step(...)"]:::proc
+  STEP["step: charge card<br/>runs once"]:::good
+  APP["append to history + persist"]:::work
+  LOG[("append-only history<br/>0: charge = $100<br/>1: ship = tracking-1")]:::proc
+  DONE["workflow completes<br/>each step ran exactly once"]:::good
+  CRASH["CRASH - process dies"]:::bad
+  REPLAY["restart, replay history,<br/>then continue live"]:::good
+  WF -->|run| STEP --> APP --> LOG --> DONE
+  CRASH -. load history .-> REPLAY
+  REPLAY -. served from log, not re-run .-> LOG
+```
+
 ## Layout
 
 ```
