@@ -20,7 +20,7 @@ durable-execution is a small, readable engine that does exactly that, plus the t
 ## Quickstart
 
 ```python
-from durable-execution import Engine, HistoryStore
+from resumerun import Engine, HistoryStore
 
 store = HistoryStore()
 
@@ -43,6 +43,16 @@ Engine(store).resume("order-42", order_workflow)
 pip install -e ".[dev]"
 pytest
 ```
+
+## Three languages, one behavior
+
+The same replay engine and timing wheel — and the same 9 tests — in each language:
+
+| Language | Tests | Run |
+|----------|:-----:|-----|
+| Python | 9 | `pytest -q` |
+| C# (.NET 10) | 9 | `cd csharp && dotnet test` |
+| Java (17+) | 9 | `cd java && mvn test` |
 
 ## Design
 
@@ -70,9 +80,11 @@ flowchart LR
 
 ```
 durable-execution/
-├── resumerun/          the engine
+├── resumerun/          the engine (Python)
 │   ├── engine.py       the event-sourced replay engine (a completed step never re-runs)
 │   └── timing_wheel.py the hashed timing wheel the timers live on
+├── csharp/             the same engine + timing wheel, ported to .NET 10 (xUnit)
+├── java/               the same, in Java 17+ (JUnit / Maven)
 ├── tests/              crash-resume + timer-ordering tests
 └── DESIGN.md           the replay model, determinism enforcement, the non-goals
 ```
