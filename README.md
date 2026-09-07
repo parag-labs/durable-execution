@@ -52,20 +52,18 @@ pytest
 
 ```mermaid
 flowchart LR
-  classDef proc fill:#4a90e2,stroke:#2c5aa0,color:#fff
-  classDef good fill:#27ae60,stroke:#1e8449,color:#fff
-  classDef bad fill:#e74c3c,stroke:#c0392b,color:#fff
-  classDef work fill:#8e44ad,stroke:#6c3483,color:#fff
-  WF["workflow(ctx)<br/>ordinary code calling ctx.step(...)"]:::proc
-  STEP["step: charge card<br/>runs once"]:::good
-  APP["append to history + persist"]:::work
-  LOG[("append-only history<br/>0: charge = $100<br/>1: ship = tracking-1")]:::proc
-  DONE["workflow completes<br/>each step ran exactly once"]:::good
-  CRASH["CRASH - process dies"]:::bad
-  REPLAY["restart, replay history,<br/>then continue live"]:::good
-  WF -->|run| STEP --> APP --> LOG --> DONE
-  CRASH -. load history .-> REPLAY
-  REPLAY -. served from log, not re-run .-> LOG
+  classDef proc fill:#eff6ff,stroke:#3b82f6,color:#1e3a8a
+  classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d
+  classDef bad fill:#fef2f2,stroke:#ef4444,color:#7f1d1d
+  classDef store fill:#f0f9ff,stroke:#0ea5e9,color:#0c4a6e
+  WF["Workflow code"]:::proc
+  STEP["Run step once"]:::good
+  LOG[("History log")]:::store
+  DONE["Completed"]:::good
+  CRASH["Crash"]:::bad
+  REPLAY["Replay from log"]:::proc
+  WF -->|step| STEP -->|append| LOG --> DONE
+  CRASH -.-> REPLAY -.->|served, not re-run| LOG
 ```
 
 ## Layout
