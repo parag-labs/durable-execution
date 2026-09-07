@@ -74,7 +74,6 @@ durable-execution/
 │   ├── engine.py       the event-sourced replay engine (a completed step never re-runs)
 │   └── timing_wheel.py the hashed timing wheel the timers live on
 ├── tests/              crash-resume + timer-ordering tests
-├── docs/diagrams/      architecture diagrams
 └── DESIGN.md           the replay model, determinism enforcement, the non-goals
 ```
 
