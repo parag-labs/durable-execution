@@ -10,7 +10,7 @@
       "y": 20,
       "width": 900,
       "height": 60,
-      "text": "resume-run - survive a crash by replaying history",
+      "text": "durable-execution - survive a crash by replaying history",
       "fontSize": 24,
       "fontFamily": 1,
       "strokeColor": "#000000",

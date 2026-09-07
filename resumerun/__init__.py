@@ -1,4 +1,4 @@
-"""resume-run: durable execution - workflows that survive crashes by replay."""
+"""durable-execution: durable execution - workflows that survive crashes by replay."""
 
 from .engine import Engine, HistoryEvent, HistoryStore, WorkflowContext
 from .timing_wheel import HierarchicalTimingWheel
