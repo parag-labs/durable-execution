@@ -24,7 +24,7 @@ repeats a side effect. Goals:
 
 ![event-sourced replay](docs/diagrams/event-sourced-replay.png)
 
-*(Source: [`docs/diagrams/event-sourced-replay.excalidraw`](docs/diagrams/event-sourced-replay.excalidraw) - editable in [excalidraw](https://aka.ms/excalidraw).)*
+*(The same diagram renders inline as Mermaid in the [README](README.md#how-it-works); this PNG is a static export.)*
 
 
 A workflow is a function that takes a `WorkflowContext`. The only way to do
