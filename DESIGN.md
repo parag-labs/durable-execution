@@ -24,7 +24,7 @@ repeats a side effect. Goals:
 
 ![event-sourced replay](docs/diagrams/event-sourced-replay.png)
 
-*(The same diagram renders inline as Mermaid in the [README](README.md#how-it-works); this PNG is a static export.)*
+*(The [README](README.md#how-it-works) sketches this flow inline as Mermaid; the PNG above is the detailed view - the engine's re-execute-from-top loop, the branch to `Completed`, and the invariants that keep replay honest.)*
 
 
 A workflow is a function that takes a `WorkflowContext`. The only way to do
