@@ -26,6 +26,13 @@ repeats a side effect. Goals:
 
 *(The [README](README.md#how-it-works) sketches this flow inline as Mermaid; the PNG above is the detailed view - the engine's re-execute-from-top loop, the branch to `Completed`, and the invariants that keep replay honest.)*
 
+<details>
+<summary>Before the redraw - the earlier version of this diagram</summary>
+
+![event-sourced replay, before the redraw](docs/diagrams/event-sourced-replay-v1.png)
+
+</details>
+
 
 A workflow is a function that takes a `WorkflowContext`. The only way to do
 anything with a side effect is `ctx.step(id, fn)`. The first time a step runs, its
