@@ -1,0 +1,10 @@
+[package]
+name = "durable-execution"
+version = "0.1.0"
+edition = "2021"
+description = "Durable execution: crash-surviving workflow replay plus a hashed timing wheel"
+license = "MIT"
+
+[lib]
+name = "durable_execution"
+path = "src/lib.rs"

@@ -44,15 +44,20 @@ pip install -e ".[dev]"
 pytest
 ```
 
-## Three languages, one behavior
+## Six languages, one behavior
 
-The same replay engine and timing wheel — and the same 9 tests — in each language:
+The same replay engine and timing wheel — identical behavior — in each language:
 
 | Language | Tests | Run |
 |----------|:-----:|-----|
 | Python | 9 | `pytest -q` |
 | C# (.NET 10) | 9 | `cd csharp && dotnet test` |
 | Java (17+) | 9 | `cd java && mvn test` |
+| Go (1.22+) | 19 | `cd go && go test ./...` |
+| Rust | 20 | `cd rust && cargo test` |
+| TypeScript | 21 | `cd ts && npm test` |
+
+> **A timing-wheel subtlety the ports all reproduce.** `advance` increments the clock *before* it ticks the slot for the new time, so a timer scheduled with delay `0` is not served the instant it is created — it waits in bucket `0` until the wheel wraps all the way around and fires at `now == slots`. Every port pins this down in a test rather than "fixing" it, because it is an inherent property of the wheel-plus-overflow design and must stay identical across languages.
 
 ## Design
 
@@ -85,6 +90,9 @@ durable-execution/
 │   └── timing_wheel.py the hashed timing wheel the timers live on
 ├── csharp/             the same engine + timing wheel, ported to .NET 10 (xUnit)
 ├── java/               the same, in Java 17+ (JUnit / Maven)
+├── go/                 the same, in Go 1.22+ (go test)
+├── rust/               the same, in Rust (cargo test)
+├── ts/                 the same, in TypeScript (vitest)
 ├── tests/              crash-resume + timer-ordering tests
 └── DESIGN.md           the replay model, determinism enforcement, the non-goals
 ```
